@@ -1,0 +1,3 @@
+day7.5
+FIFO8结构体的定义，开始时候写成了char *buf,后来发现fifo_get的结果是0xxxxxxxx这样的，有很多前置x。
+修正为unsigned后，只显示两位，成功!

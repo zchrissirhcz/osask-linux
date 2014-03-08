@@ -1,0 +1,2 @@
+根据书上P100,定义两个函数putblock8_8和init_mouse_curosr8,并在main.c中调用。
+注意在header.h中用extern声明

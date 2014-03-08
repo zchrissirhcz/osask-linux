@@ -1,0 +1,42 @@
+添加了haribote.nas文件，修改了makefile
+makefile的步骤：
+1.创建myos.img（和前面几次一样）
+2.将haribote.nas编译为haribote.bin
+3.挂载myos.img
+4.复制haribote.bin到myos.img上
+5.卸载myos.img
+
+运行步骤:
+make clean
+make
+sudo make copy
+make run
+
+用16进制编辑器hexedit查看：
+hexedit myos.img
+发现在地址为0000:2600的地方有数据了！成功!
+
+Attention!
+1.hexedit需要下载并安装：sudo yum install hexedit -y
+2.sudo make copy这一步是必须的，因为要拷贝，同时需要sudo权限
+3.另一个有数据的地址为0000:4400,发现和书上不一样。网上查过别人的帖子，基本上都是4400.估计是《30天》使用的工具和我们不太相同，我们这个4400经过考证应该是正确的。原因如下：
+
+查看了微软的硬件白皮书（fatgen.doc），发现这个0x4400是可以计算出来的：
+第一个公式：
+RootDirSectors = ((BPB_RootEntCnt * 32) + (BPB_BytsPerSec – 1)) / BPB_BytsPerSec;
+这里需要注意，要round up取整。
+第二个公式：
+If(BPB_FATSz16 != 0)
+	FATSz = BPB_FATSz16;
+Else
+	FATSz = BPB_FATSz32;
+FirstDataSector = BPB_ResvdSecCnt + (BPB_NumFATs * FATSz) + RootDirSectors;
+预先设定的值中，BPB_FATSx16等于9，BPB_ResvdSecCnt为1， BPB_NumFATs为2， RootDirSectors上面计算得到是15，那么：
+				FirstData=34
+那么，34*512，也就是4400H那里了（4400H/200H=22H=34, 200H就是512k）
+
+
+这里还有一个问题，就是在计算RootDirSectors的时候，感觉分子上的（512-1）没有什么用处。网上有人这样解释：
+“"字节对齐作用",解释比较简单和牵强,不过你这句话提醒了我,我想微软的这个公式是同时用于计算FAT16和FAT12用的,
+对于FAT16本身"(BPB_BytsPerSec – 1)/BPB_BytsPerSec"是没必要的,而对于FAT12由于它每个表项是1.5个字节,如果
+应用不当的话有可能会造成"跨越扇区边界"的问题,故而保留了1个扇区,不知这样认识对不对,请朋友们继续发表看法. ”（ref：http://bbs.eeworld.com.cn/thread-131851-1-1.html）

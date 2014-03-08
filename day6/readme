@@ -1,0 +1,3 @@
+day6
+这一天改了好多次，由于米油的代码中entry.S总是在变化，开始时没有认真看过entry.S的内容，被卡了好久。
+entry.S是来自ucore_pub的一段代码bootasm.S修改而来

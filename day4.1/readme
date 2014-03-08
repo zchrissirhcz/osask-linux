@@ -1,0 +1,6 @@
+day4.1
+书上day3.10提到了c语言，写了一个naskfunc.nas。我们不这么做。
+我们通过两个宏定义来代替naskfunc.nas中的write_mem8和io_hlt，在header.h中定义
+注意这里我们把名字io_hlt替换了为io_halt
+
+修改main.c，调用刚刚定义的write_mem8，通过显存部分的0xa0000-0xaffff都设定write_mem8(i,15)，整个屏幕就变成了白色。

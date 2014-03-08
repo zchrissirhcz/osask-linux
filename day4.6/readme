@@ -1,0 +1,6 @@
+day4.6
+这部分作者的naskfunc.c定义了好多函数，不过我们用C语言的几个函数取而代之吧
+
+首先修改main.c函数，添加init_palette()的调用
+其次在header.h中声明init_palette().用extern的形式，那么只需要在screen.c中#include<header.h>并定义init_palette()即可
+在screen.c中定义init_palette()和set_palette().   init_palette()会调用set_palette()

@@ -1,0 +1,4 @@
+day5.7
+书本上说使用sprintf调式，不过因为makefile不是很会写的缘故（实际上是汇编、ld什么的不懂，所以不会），因此不能使用stdio.h中的sprintf
+不过可以通过自定义sprintf来实现打印变量的值，用来调试
+为了方便，sprintf的代码就从网上代码中copy了.

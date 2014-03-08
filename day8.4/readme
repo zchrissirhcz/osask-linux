@@ -1,0 +1,2 @@
+day8.4
+代码直接copy书上的就ok了。不过运行时发现鼠标不会动，需要在qemu的菜单项view中设定grab input(捕捉输入)

@@ -1,0 +1,12 @@
+nasm -o bootloader hello.nas
+make[1]: 进入目录“/home/chris/workspace/os/version1/myos/kernel”
+rm -f *.d *.o *.out main.o kernel kernel.asm cobj* entry.o entry.asm entry
+make[1]: 离开目录“/home/chris/workspace/os/version1/myos/kernel”
+make[1]: 进入目录“/home/chris/workspace/os/version1/myos/kernel”
+cc -nostdinc  -O1 -fno-builtin -I. -MD  -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused  -gstabs -m32  -fno-stack-protector -c -o entry.o entry.S	
+addr=0xc400
+ld  -m elf_i386 -N -e entry -Ttext 0xc400 -o entry.out entry.o
+objdump -S -D entry.out >entry.asm
+objcopy -S -O binary -j .text entry.out entry
+cc -nostdinc  -O1 -fno-builtin -I. -MD  -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused  -gstabs -m32  -fno-stack-protector -Os -c -o main.o main.c
+make[1]: 离开目录“/home/chris/workspace/os/version1/myos/kernel”

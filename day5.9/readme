@@ -1,0 +1,9 @@
+day5.9
+这部分无法看到运行结果。
+
+根据huangtao的代码在修改，定义了idtgdt.c文件.不过有几个地址和书上不一样，感觉会出问题。。。
+
+内部makefile也修改了。ld的时候对应的ld文件一直不懂。先凑合用一下。
+
+load_gdtr()和load_idtr()函数，都在entry.S中进行了设定，其实还是汇编调用.
+x86.h,entry.S都根据huangtao的代码进行了拷贝
