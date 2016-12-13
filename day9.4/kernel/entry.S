@@ -134,7 +134,8 @@ protcseg:
   movw    %ax, %ss                # -> SS: Stack Segment
 
   # Set up the stack pointer and call into C.
-  movl    $start, %esp
+  # stack range: 0x00300000 - 0x003fffff
+  movl    $0x3fffff, %esp
   #call bootmain
   
 ccode: 
